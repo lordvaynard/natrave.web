@@ -13,10 +13,6 @@ const validationSchema = yup.object().shape({
 export const Login = () => {
     const [auth,setAuth] = useLocalStorage('auth', {}) //controle do DB local React
 
-    if(auth?.user?.id){ //se logado vai para o dashboard
-        return <Navigate to="/dashboard" replace={true} />
-    }
-
     const formik  = useFormik({
         onSubmit: async (values) => {
             const res = await axios({
@@ -39,6 +35,10 @@ export const Login = () => {
         },
         validationSchema
     })
+
+    if(auth?.user?.id){ //se logado vai para o dashboard
+        return <Navigate to="/dashboard" replace={true} />
+    }
 
     return (
         <div>

@@ -19,23 +19,18 @@ export const Signup = () => {
       return <Navigate to="/dashboard" replace={true} />
     }
 
-    const formik  = useFormik({//Chamada do back end para cadastrtar o usuario
+    const formik  = useFormik({
         onSubmit: async (values) => {
             const res = await axios({
                 method: 'post',
                 baseURL: import.meta.env.VITE_API_URL,
                 url: './users',
-                data: values,
-                auth: { //função do axios para login
-                    username: values.email, //propriedade username do axios para login
-                    password: values.password//propriedade password do axios para login
-                }                
+                data: values
             })
             
             setAuth(res.data) //função para gravar a autorização do login reactuse
             //window.localStorage.setItem('auth', JSON.stringify(res.data)) //gravando no banco local como string o auth
             //const auth = localStorage.getItem(JSON.parse('auth')) --ler banco local de autorização em texto e transformando em objeto
-
         },
         initialValues: {
             name: '',
@@ -45,6 +40,10 @@ export const Signup = () => {
         },
         validationSchema
     })
+
+    if(auth?.user?.id){ //se logado vai para dashboard
+        return <Navigate to="/dashboard" replace={true} />
+    }
 
     return (
         <div>
