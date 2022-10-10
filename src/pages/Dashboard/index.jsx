@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { format, formatISO } from 'date-fns'
 import { Navigate } from 'react-router-dom'
 import { useAsyncFn, useLocalStorage } from 'react-use' //controle do react localStorage
 import { Icon, Card, DateSelect } from '~/components'
-import { format, formatISO } from 'date-fns'
+
 
 export const Dashboard = () => {
     const [currentDate, setDate] = useState(formatISO(new Date(2022, 10, 20)))//JS janeiro é mes 0 - pega o timeZone da maquina que esta executando
